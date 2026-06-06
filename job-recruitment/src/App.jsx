@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import RoleSelection from "./pages/register/RoleSelection";
 import JobSeekerRegister from "./pages/register/JobSeekerRegister";
 import EmployerRegister from "./pages/register/EmployerRegister";
-import Login from "./pages/Login";
+import Login from "./pages/login";
 
 function App() {
   
