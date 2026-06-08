@@ -1,4 +1,5 @@
 import React from "react";
+import { FaCheckCircle } from "react-icons/fa";
 
 function HowItWorks() {
   return (
@@ -22,12 +23,35 @@ function HowItWorks() {
             </h3>
 
             <ul className="space-y-4">
-              <li>✅ Create an Account</li>
-              <li>✅ Complete Your Profile</li>
-              <li>✅ Upload CV & Certificates</li>
-              <li>✅ Search Available Jobs</li>
-              <li>✅ Apply Online</li>
-              <li>✅ Track Application Status</li>
+              <li className="flex items-center gap-2">
+                <FaCheckCircle />
+                  Create an Account
+            </li>
+
+              <li className="flex items-center gap-2">
+                <FaCheckCircle />
+                  Complete Your Profile
+               </li>
+
+              <li className="flex items-center gap-2">
+                <FaCheckCircle />
+                  Upload CV & Certificates
+              </li>
+
+              <li className="flex items-center gap-2">
+                <FaCheckCircle />
+                  Search Available Jobs
+              </li>
+
+              <li className="flex items-center gap-2">
+                <FaCheckCircle />
+                  Apply Online
+              </li>
+
+              <li className="flex items-center gap-2">
+                <FaCheckCircle />
+                  Track Application Status
+              </li>
             </ul>
           </div>
 
@@ -37,14 +61,37 @@ function HowItWorks() {
               For Employers
             </h3>
 
-            <ul className="space-y-4">
-              <li>✅ Register Company Account</li>
-              <li>✅ Complete Company Profile</li>
-              <li>✅ Post Job Vacancies</li>
-              <li>✅ Review Applications</li>
-              <li>✅ Shortlist Candidates</li>
-              <li>✅ Hire Top Talent</li>
-            </ul>
+           <ul className="space-y-4">
+  <li className="flex items-center gap-2">
+    <FaCheckCircle />
+    Register Company Account
+  </li>
+
+  <li className="flex items-center gap-2">
+    <FaCheckCircle />
+    Complete Company Profile
+  </li>
+
+  <li className="flex items-center gap-2">
+    <FaCheckCircle />
+    Post Job Vacancies
+  </li>
+
+  <li className="flex items-center gap-2">
+    <FaCheckCircle />
+    Review Applications
+  </li>
+
+  <li className="flex items-center gap-2">
+    <FaCheckCircle />
+    Shortlist Candidates
+  </li>
+
+  <li className="flex items-center gap-2">
+    <FaCheckCircle />
+    Hire Top Talent
+  </li>
+</ul>
           </div>
 
         </div>

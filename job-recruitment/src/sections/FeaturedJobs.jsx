@@ -1,4 +1,5 @@
 import React from "react";
+import { HiOutlineMapPin } from "react-icons/hi2";
 
 function FeaturedJobs() {
   const jobs = [
@@ -48,9 +49,11 @@ function FeaturedJobs() {
                 {job.company}
               </p>
 
-              <p className="text-gray-600 mb-2">
-                📍 {job.location}
+              <p className="text-gray-600 mb-2 flex items-center gap-1">
+                <HiOutlineMapPin />
+                  {job.location}
               </p>
+              
 
               <span className="inline-block bg-blue-100 text-blue-600 px-3 py-1 rounded">
                 {job.type}

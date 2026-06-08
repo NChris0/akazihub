@@ -2,13 +2,16 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom"
 
 function Login() {
-
+ const navigate = useNavigate();
 const [formData, setFormData] = useState({
   email: "",
   password: "",
 });
+
 
 const handleChange = (e) => {
   setFormData({
@@ -17,10 +20,43 @@ const handleChange = (e) => {
   });
 };
 
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
 
-  console.log(formData);
+  try {
+    const response = await axios.post(
+      "http://localhost:5000/api/auth/login",
+      formData
+    );
+
+    console.log(response.data);
+
+    localStorage.setItem(
+      "token",
+      response.data.token
+    );
+
+    localStorage.setItem(
+      "role",
+      response.data.role
+    );
+    if (response.data.role === "jobseeker") {
+  navigate("/jobseeker-dashboard");
+} else if (response.data.role === "employer") {
+  navigate("/employer-dashboard");
+} else if (response.data.role === "admin") {
+  navigate("/admin-dashboard");
+}
+   
+
+  } catch (error) {
+    console.log(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Login Failed"
+    );
+  }
 };
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-6">
@@ -69,6 +105,15 @@ const handleSubmit = (e) => {
           </Link>
           
         </p>
+        <p className="text-center mt-3 text-gray-600">
+  Already have an account?{" "}
+  <Link
+    to="/"
+    className="text-blue-600 font-semibold"
+  >
+    Home
+  </Link>
+</p>
 
       </div>
     </div>

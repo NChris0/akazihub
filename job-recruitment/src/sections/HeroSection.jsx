@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function HeroSection() {
   return (
@@ -16,13 +17,19 @@ function HeroSection() {
         </p>
 
         <div className="flex justify-center gap-4">
-          <button className="bg-blue-600 text-white px-6 py-3 rounded-lg">
-            Create Account
-          </button>
+          <Link
+  to="/register"
+  className="bg-blue-600 text-white px-6 py-3 rounded-lg"
+>
+  Create Account
+</Link>
 
-          <button className="border border-blue-600 text-blue-600 px-6 py-3 rounded-lg">
-            Browse Jobs
-          </button>
+<Link
+  to="/categories"
+  className="border border-blue-600 text-blue-600 px-6 py-3 rounded-lg"
+>
+  Browse Jobs
+</Link>
         </div>
 
       </div>
