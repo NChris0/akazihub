@@ -24,8 +24,26 @@ const employer = await Employer.create({
       message: error.message,
     });
   }
+  };
+  const getAllEmployers = async (req, res) => {
+  try {
+    const employers = await Employer.find();
+
+    res.status(200).json({
+      success: true,
+      data: employers,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
+
 
 module.exports = {
   registerEmployer,
+  getAllEmployers,
 };

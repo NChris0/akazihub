@@ -6,6 +6,8 @@ const jobSeekerRoutes = require("./routes/jobSeekerRoutes");
 const employerRoutes = require("./routes/employerRoutes");
 const authRoutes = require("./routes/authRoutes");
 const jobRoutes = require("./routes/jobRoutes");
+const applicationRoutes = require("./routes/applicationRoutes");
+const path = require("path");
 
 const app = express();
 
@@ -13,10 +15,17 @@ dotenv.config();
 connectDB();
 app.use(cors());
 app.use(express.json());
+app.use(
+  "/uploads",
+  express.static(
+    path.join(__dirname, "uploads")
+  )
+);
 app.use("/api/jobseekers", jobSeekerRoutes);
 app.use("/api/employers", employerRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/jobs", jobRoutes);
+app.use("/api/applications", applicationRoutes);
 
 app.get("/", (req, res) => {
   res.send("Job Recruitment API Running...");

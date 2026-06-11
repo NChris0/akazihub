@@ -31,6 +31,12 @@ const jobSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
+    employerId: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "Employer",
+  required: true,
+},
   },
   {
     timestamps: true,

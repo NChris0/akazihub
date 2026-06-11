@@ -36,7 +36,46 @@ const getAllJobs = async (req, res) => {
   }
 };
 
+const getEmployerJobs = async (req, res) => {
+  try {
+    const jobs = await Job.find({
+      employerId: req.params.employerId,
+    });
+
+    res.status(200).json({
+      success: true,
+      data: jobs,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+const deleteJob = async (req, res) => {
+  try {
+    await Job.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({
+      success: true,
+      message: "Job Deleted Successfully",
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
 module.exports = {
   createJob,
   getAllJobs,
+  getEmployerJobs,
+  deleteJob,
 };

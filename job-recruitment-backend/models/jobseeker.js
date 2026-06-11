@@ -37,6 +37,10 @@ const jobSeekerSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    cv: {
+  type: String,
+  default: "",
+},
 
     password: {
       type: String,

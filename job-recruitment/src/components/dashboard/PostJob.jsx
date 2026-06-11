@@ -22,10 +22,15 @@ function PostJob() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/jobs/create",
-        formData
-      );
+      const employerId = sessionStorage.getItem("userId");
+
+     const response = await axios.post(
+     "http://localhost:5000/api/jobs/create",
+    {
+      ...formData,
+      employerId,
+    }
+    );
 
       console.log(response.data);
 

@@ -2,6 +2,29 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function AvailableJobs() {
+  const handleApply = async (jobId) => {
+  try {
+    const applicantId = sessionStorage.getItem("userId");
+
+    const response = await axios.post(
+      "http://localhost:5000/api/applications/apply",
+      {
+        jobId,
+        applicantId,
+      }
+    );
+
+    alert(response.data.message);
+
+  } catch (error) {
+    console.log(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Application Failed"
+    );
+  }
+};
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -67,10 +90,11 @@ function AvailableJobs() {
                 {job.description}
               </p>
 
-              <button
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg"
-              >
-                Apply Now
+             <button
+                  onClick={() => handleApply(job._id)}
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+>
+                  Apply Now
               </button>
 
             </div>

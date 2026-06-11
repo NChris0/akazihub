@@ -7,11 +7,29 @@ import JobSeekerRegister from "./pages/register/JobSeekerRegister";
 import EmployerRegister from "./pages/register/EmployerRegister";
 import Login from "./pages/login";
 import CategoriesSection from "./sections/CategoriesSection";
+
+import JobSeekerLayout from "./components/layouts/JobSeekerLayout";
+import EmployerLayout from "./components/layouts/EmployerLayout";
+import AdminLayout from "./components/layouts/AdminLayout";
+
 import JobSeekerDashboard from "./components/Dashboard/JobSeekerDashboard";
 import EmployerDashboard from "./components/Dashboard/EmployerDashboard";
 import AdminDashboard from "./components/Dashboard/AdminDashboard";
-import PostJob from "./components/Dashboard/PostJob";
+
 import AvailableJobs from "./components/Dashboard/AvailableJobs";
+import MyApplications from "./components/Dashboard/MyApplications";
+import Profile from "./components/Dashboard/Profile";
+import EditProfile from "./components/dashboard/EditProfile";
+import UploadCV from "./components/Dashboard/UploadCV";
+
+import PostJob from "./components/Dashboard/PostJob";
+import MyPostedJobs from "./components/Dashboard/MyPostedJobs";
+import ViewApplicants from "./components/Dashboard/ViewApplicants";
+
+ import ManageJobs from "./components/dashboard/admin/ManageJobs";
+ import ManageEmployers from "./components/dashboard/admin/ManageEmployers";
+ import ManageJobSeekers from "./components/dashboard/admin/ManageJobSeekers";
+
 
 function App() {
   
@@ -24,11 +42,82 @@ function App() {
       <Route path="/register/employer" element={<EmployerRegister />} />
       <Route path="/login" element={<Login />} />
       <Route path="/categories" element={<CategoriesSection />} />
-      <Route path="/jobseeker-dashboard" element={<JobSeekerDashboard />} />
-      <Route path="/employer-dashboard" element={<EmployerDashboard />} />
-      <Route path="/admin-dashboard" element={<AdminDashboard />} />
+      <Route path="/jobseeker" element={<JobSeekerLayout />}>
+  <Route index element={<JobSeekerDashboard />} />
+     <Route
+    path="available-jobs"
+    element={<AvailableJobs />}
+  />
+
+       <Route
+    path="my-applications"
+    element={<MyApplications />}
+  />
+
+       <Route
+    path="profile"
+    element={<Profile />}
+  />
+
+    <Route
+    path="upload-cv"
+    element={<UploadCV />}
+  />
+</Route>
+       <Route
+  path="/employer"
+  element={<EmployerLayout />}
+>
+  <Route
+    index
+    element={<EmployerDashboard />}
+  />
+
+  <Route
+    path="post-job"
+    element={<PostJob />}
+  />
+
+  <Route
+    path="my-posted-jobs"
+    element={<MyPostedJobs />}
+  />
+
+  <Route
+    path="view-applicants/:jobId"
+    element={<ViewApplicants />}
+  />
+</Route>
+       <Route
+  path="/admin"
+  element={<AdminLayout />}
+>
+  <Route
+    index
+    element={<AdminDashboard />}
+  />
+
+  <Route
+    path="jobs"
+    element={<ManageJobs />}
+  />
+
+  <Route
+    path="employers"
+    element={<ManageEmployers />}
+  />
+
+  <Route
+    path="jobseekers"
+    element={<ManageJobSeekers />}
+  />
+</Route>
+  
       <Route path="/post-job" element={<PostJob />} />
-      <Route path="/available-jobs" element={<AvailableJobs />} />
+      <Route path="/edit-profile" element={<EditProfile />} />
+      <Route path="/my-posted-jobs" element={<MyPostedJobs />} />
+      
+      
     </Routes>
     
      

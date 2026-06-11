@@ -31,22 +31,32 @@ const handleSubmit = async (e) => {
 
     console.log(response.data);
 
-    localStorage.setItem(
+    sessionStorage.setItem(
       "token",
       response.data.token
     );
 
-    localStorage.setItem(
+    sessionStorage.setItem(
       "role",
       response.data.role
     );
+    sessionStorage.setItem(
+  "userId",
+  response.data.userId
+);
+
+sessionStorage.setItem(
+  "fullName",
+  response.data.fullName
+);
     if (response.data.role === "jobseeker") {
-  navigate("/jobseeker-dashboard");
+  navigate("/jobseeker");
 } else if (response.data.role === "employer") {
-  navigate("/employer-dashboard");
+  navigate("/employer");
 } else if (response.data.role === "admin") {
-  navigate("/admin-dashboard");
+  navigate("/admin");
 }
+
    
 
   } catch (error) {
