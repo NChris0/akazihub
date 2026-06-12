@@ -32,6 +32,7 @@ import ViewApplicants from "./components/Dashboard/ViewApplicants";
 
  import EditJob from "./components/dashboard/jobseeker/EditJob";
  import EditJobs from "./components/dashboard/employer/EditJob";
+ import JobDetails from "./components/Dashboard/jobseeker/JobDetails";
 
 
 function App() {
@@ -66,7 +67,13 @@ function App() {
     path="upload-cv"
     element={<UploadCV />}
   />
+
+ 
 </Route>
+         <Route
+  path="/job/:id"
+  element={<JobDetails />}
+/>
        <Route
   path="/employer"
   element={<EmployerLayout />}

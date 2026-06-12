@@ -10,7 +10,7 @@ function MyApplications() {
 
   const fetchApplications = async () => {
     try {
-      const userId = localStorage.getItem("userId");
+      const userId = sessionStorage.getItem("userId");
 
       const response = await axios.get(
         `http://localhost:5000/api/applications/user/${userId}`

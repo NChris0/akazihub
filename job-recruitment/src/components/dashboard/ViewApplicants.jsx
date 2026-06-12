@@ -43,6 +43,8 @@ function ViewApplicants() {
     }
   };
 
+  console.log(applicants);
+
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold mb-8">
@@ -83,10 +85,28 @@ function ViewApplicants() {
               </p>
 
               <p>
+                CV File: {application.applicantId.cv}
+              </p>
+
+              <p>
                 Status: {application.status}
               </p>
 
               <div className="flex gap-3 mt-4">
+              {application.applicantId?.cv ? (
+  <a
+    href={`http://localhost:5000/uploads/${application.applicantId.cv}`}
+    target="_blank"
+    rel="noreferrer"
+    className="inline-block mt-3 bg-blue-600 text-white px-4 py-2 rounded"
+  >
+    Download CV
+  </a>
+) : (
+  <p className="text-red-500 mt-3">
+    No CV Uploaded
+  </p>
+)}
 
   <button
     onClick={() =>
