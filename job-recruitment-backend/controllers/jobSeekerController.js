@@ -3,30 +3,47 @@ const bcrypt = require("bcryptjs");
 
 const registerJobSeeker = async (req, res) => {
   try {
-   const hashedPassword = await bcrypt.hash(
-  req.body.password,
-  10
-);
+    const hashedPassword = await bcrypt.hash(
+      req.body.password,
+      10
+    );
 
-const jobSeeker = await JobSeeker.create({
-  ...req.body,
-  password: hashedPassword,
-});
+    const jobSeeker = await JobSeeker.create({
+      ...req.body,
+      password: hashedPassword,
+    });
 
     res.status(201).json({
       success: true,
       message: "Job Seeker Registered Successfully",
       data: jobSeeker,
     });
-  }
-catch (error) {
-  console.log("ERROR =>", error);
 
-  res.status(500).json({
-    success: false,
-    message: error.message,
-  });
-}
+  } catch (error) {
+    console.log("ERROR =>", error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+const getAllJobSeekers = async (req, res) => {
+  try {
+    const jobSeekers = await JobSeeker.find();
+
+    res.status(200).json({
+      success: true,
+      data: jobSeekers,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
 const getProfile = async (req, res) => {
@@ -71,9 +88,20 @@ const updateProfile = async (req, res) => {
     });
   }
 };
+
 const uploadCV = async (req, res) => {
   try {
+
+    console.log("PARAMS =>", req.params);
+    console.log("ID =>", req.params.id);
     console.log("FILE =>", req.file);
+
+    if (!req.params.id) {
+      return res.status(400).json({
+        success: false,
+        message: "User ID is missing",
+      });
+    }
 
     const updatedUser = await JobSeeker.findByIdAndUpdate(
       req.params.id,
@@ -92,6 +120,7 @@ const uploadCV = async (req, res) => {
     });
 
   } catch (error) {
+
     console.log("UPLOAD ERROR =>", error);
 
     res.status(500).json({
@@ -101,16 +130,20 @@ const uploadCV = async (req, res) => {
   }
 };
 
-const getAllJobSeekers = async (req, res) => {
+const deleteJobSeeker = async (req, res) => {
   try {
-    const jobSeekers = await JobSeeker.find();
+
+    await JobSeeker.findByIdAndDelete(
+      req.params.id
+    );
 
     res.status(200).json({
       success: true,
-      data: jobSeekers,
+      message: "Job Seeker Deleted Successfully",
     });
 
   } catch (error) {
+
     res.status(500).json({
       success: false,
       message: error.message,
@@ -118,11 +151,11 @@ const getAllJobSeekers = async (req, res) => {
   }
 };
 
-
 module.exports = {
   registerJobSeeker,
+  getAllJobSeekers,
   getProfile,
   updateProfile,
   uploadCV,
-  getAllJobSeekers,
+  deleteJobSeeker,
 };

@@ -8,21 +8,41 @@ function UploadCV() {
     e.preventDefault();
 
     try {
-      const userId = localStorage.getItem("userId");
+      const userId = sessionStorage.getItem("userId");
+
+      console.log("USER ID =", userId);
+
+      if (!userId) {
+        alert("User ID not found. Please login again.");
+        return;
+      }
+
+      if (!cv) {
+        alert("Please select a CV file");
+        return;
+      }
 
       const formData = new FormData();
       formData.append("cv", cv);
 
       const response = await axios.put(
         `http://localhost:5000/api/jobseekers/upload-cv/${userId}`,
-        formData
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
 
       alert(response.data.message);
 
     } catch (error) {
       console.log(error);
-      alert("CV Upload Failed");
+      alert(
+        error.response?.data?.message ||
+        "CV Upload Failed"
+      );
     }
   };
 
@@ -39,7 +59,7 @@ function UploadCV() {
           onChange={(e) =>
             setCv(e.target.files[0])
           }
-          className="mb-4"
+          className="mb-4 block"
         />
 
         <button

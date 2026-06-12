@@ -72,6 +72,16 @@ function EmployerLayout() {
             <span>My Posted Jobs</span>
           </NavLink>
 
+          <button
+             onClick={() => {
+             sessionStorage.clear();
+             window.location.href = "/login";
+             }}
+              className="mt-10 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded w-full"
+          >
+          Logout
+          </button>
+
         </div>
 
       </div>

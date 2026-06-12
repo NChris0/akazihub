@@ -1,17 +1,10 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import {
-  FaHome,
-  FaBriefcase,
-  FaFileAlt,
-  FaUser,
-  FaUpload,
-} from "react-icons/fa";
+import {FaHome,FaBriefcase,FaFileAlt,FaUser,FaUpload,} from "react-icons/fa";
 
 function JobSeekerLayout() {
-
-    const fullName =
-  sessionStorage.getItem("fullName");
+     
+    const fullName = sessionStorage.getItem("fullName");
 
   return (
     <div className="flex min-h-screen">
@@ -90,7 +83,7 @@ function JobSeekerLayout() {
 
         <button
           onClick={() => {
-            localStorage.clear();
+            sessionStorage.clear();
             window.location.href = "/login";
           }}
           className="mt-10 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded"

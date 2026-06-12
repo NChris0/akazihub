@@ -25,6 +25,9 @@ const employer = await Employer.create({
     });
   }
   };
+
+
+  
   const getAllEmployers = async (req, res) => {
   try {
     const employers = await Employer.find();
@@ -42,8 +45,26 @@ const employer = await Employer.create({
   }
 };
 
+const deleteEmployer = async (req, res) => {
+  try {
+    await Employer.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({
+      success: true,
+      message: "Employer Deleted Successfully",
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 
 module.exports = {
   registerEmployer,
   getAllEmployers,
+  deleteEmployer,
 };

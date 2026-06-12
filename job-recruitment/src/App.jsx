@@ -30,6 +30,9 @@ import ViewApplicants from "./components/Dashboard/ViewApplicants";
  import ManageEmployers from "./components/dashboard/admin/ManageEmployers";
  import ManageJobSeekers from "./components/dashboard/admin/ManageJobSeekers";
 
+ import EditJob from "./components/dashboard/jobseeker/EditJob";
+ import EditJobs from "./components/dashboard/employer/EditJob";
+
 
 function App() {
   
@@ -87,6 +90,13 @@ function App() {
     path="view-applicants/:jobId"
     element={<ViewApplicants />}
   />
+
+    <Route
+    path="edit-job/:id"
+    element={<EditJob />}
+  />
+
+  <Route path="/employer" element={<EmployerLayout />} />
 </Route>
        <Route
   path="/admin"

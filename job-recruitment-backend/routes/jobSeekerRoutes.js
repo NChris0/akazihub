@@ -8,6 +8,7 @@ const {
   updateProfile,
   uploadCV,
   getAllJobSeekers,
+  deleteJobSeeker
 } = require("../controllers/jobSeekerController");
 
 router.post("/register", registerJobSeeker);
@@ -27,6 +28,11 @@ router.put(
   "/upload-cv/:id",
   upload.single("cv"),
   uploadCV
+);
+
+router.delete(
+  "/:id",
+  deleteJobSeeker
 );
 
 module.exports = router;

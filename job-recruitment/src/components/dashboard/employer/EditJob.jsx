@@ -1,37 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 
-function EditProfile() {
-   const navigate = useNavigate();
+function EditJob() {
+  const { jobId } = useParams();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    phone: "",
-    address: "",
-    education: "",
-    skills: "",
-    experience: "",
+    title: "",
+    company: "",
+    location: "",
+    salary: "",
+    category: "",
+    description: "",
   });
 
   useEffect(() => {
-    fetchProfile();
+    fetchJob();
   }, []);
 
-  const fetchProfile = async () => {
+  const fetchJob = async () => {
     try {
-      const userId = sessionStorage.getItem("userId");
-      
-
       const response = await axios.get(
-        `http://localhost:5000/api/jobseekers/profile/${userId}`
+        `http://localhost:5000/api/jobs/${jobId}`
       );
 
-       setFormData({
-  phone: response.data.data?.phone || "",
-  address: response.data.data?.address || "",
-  education: response.data.data?.education || "",
-  skills: response.data.data?.skills || "",
-  experience: response.data.data?.experience || "",
-});
+      setFormData(response.data.data);
 
     } catch (error) {
       console.log(error);
@@ -45,80 +39,84 @@ function EditProfile() {
     });
   };
 
- 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const userId = sessionStorage.getItem("userId");
-
       const response = await axios.put(
-        `http://localhost:5000/api/jobseekers/profile/${userId}`,
+        `http://localhost:5000/api/jobs/${jobId}`,
         formData
       );
 
       alert(response.data.message);
-      navigate("/jobseeker/profile");
+
+      navigate("/employer/my-posted-jobs");
 
     } catch (error) {
       console.log(error);
-      alert("Failed To Update Profile");
+      alert("Failed To Update Job");
     }
   };
-
-  
 
   return (
     <div className="max-w-3xl mx-auto p-8">
       <h1 className="text-3xl font-bold mb-8">
-        Edit Profile
+        Edit Job
       </h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
 
         <input
           type="text"
-          name="phone"
-          value={formData.phone}
+          name="title"
+          value={formData.title}
           onChange={handleChange}
-          placeholder="Phone"
+          placeholder="Job Title"
           className="w-full border p-3 rounded"
         />
 
         <input
           type="text"
-          name="address"
-          value={formData.address}
+          name="company"
+          value={formData.company}
           onChange={handleChange}
-          placeholder="Address"
+          placeholder="Company"
           className="w-full border p-3 rounded"
         />
 
         <input
           type="text"
-          name="education"
-          value={formData.education}
+          name="location"
+          value={formData.location}
           onChange={handleChange}
-          placeholder="Education"
+          placeholder="Location"
           className="w-full border p-3 rounded"
         />
 
         <input
           type="text"
-          name="skills"
-          value={formData.skills}
+          name="salary"
+          value={formData.salary}
           onChange={handleChange}
-          placeholder="Skills"
+          placeholder="Salary"
           className="w-full border p-3 rounded"
         />
 
         <input
           type="text"
-          name="experience"
-          value={formData.experience}
+          name="category"
+          value={formData.category}
           onChange={handleChange}
-          placeholder="Experience"
+          placeholder="Category"
+          className="w-full border p-3 rounded"
+        />
+
+        <textarea
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+          placeholder="Description"
+          rows="5"
           className="w-full border p-3 rounded"
         />
 
@@ -126,7 +124,7 @@ function EditProfile() {
           type="submit"
           className="bg-blue-600 text-white px-6 py-3 rounded"
         >
-          Update Profile
+          Update Job
         </button>
 
       </form>
@@ -134,4 +132,4 @@ function EditProfile() {
   );
 }
 
-export default EditProfile;
+export default EditJob;

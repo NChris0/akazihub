@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function MyPostedJobs() {
+   const navigate = useNavigate();
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
@@ -12,6 +13,7 @@ function MyPostedJobs() {
   const fetchJobs = async () => {
     try {
       const employerId = sessionStorage.getItem("userId");
+      console.log("EMPLOYER ID =", employerId);
 
       const response = await axios.get(
         `http://localhost:5000/api/jobs/employer/${employerId}`
@@ -24,53 +26,96 @@ function MyPostedJobs() {
     }
   };
 
-  return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold mb-8">
-        My Posted Jobs
-      </h1>
+  const deleteJob = async (jobId) => {
+  try {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this job?"
+    );
 
-      {jobs.length === 0 ? (
-        <h2>No Jobs Posted Yet</h2>
-      ) : (
-        <div className="grid gap-6">
-          {jobs.map((job) => (
-            <div
-              key={job._id}
-              className="bg-white p-6 rounded-xl shadow"
-            >
-              <h2 className="text-xl font-bold">
-                {job.title}
-              </h2>
+    if (!confirmDelete) return;
 
-              <p>
-                Company: {job.company}
-              </p>
+    await axios.delete(
+      `http://localhost:5000/api/jobs/${jobId}`
+    );
 
-              <p>
-                Location: {job.location}
-              </p>
+    fetchJobs();
 
-              <p>
-                Salary: {job.salary}
-              </p>
+    alert("Job Deleted Successfully");
 
-              <p>
-                Category: {job.category}
-              </p>
+  } catch (error) {
+    console.log(error);
+    alert("Failed To Delete Job");
+  }
+};
 
-               <Link
-                  to={`/employer/view-applicants/${job._id}`}
-                  className="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded"
-                >
-                 View Applicants
-                </Link>
+ return (
+  <div className="p-8">
+    <h1 className="text-3xl font-bold mb-8">
+      My Posted Jobs
+    </h1>
+
+    {jobs.length === 0 ? (
+      <h2>No Jobs Posted Yet</h2>
+    ) : (
+      <div className="grid gap-6">
+        {jobs.map((job) => (
+          <div
+            key={job._id}
+            className="bg-white p-6 rounded-xl shadow"
+          >
+            <h2 className="text-xl font-bold">
+              {job.title}
+            </h2>
+
+            <p>
+              Company: {job.company}
+            </p>
+
+            <p>
+              Location: {job.location}
+            </p>
+
+            <p>
+              Salary: {job.salary}
+            </p>
+
+            <p>
+              Category: {job.category}
+            </p>
+
+            <div className="flex gap-3 mt-4">
+
+              <Link
+                to={`/employer/view-applicants/${job._id}`}
+                className="bg-green-600 text-white px-4 py-2 rounded"
+              >
+                View Applicants
+              </Link>
+
+              <button
+                onClick={() =>
+                  navigate(`/employer/edit-job/${job._id}`)
+                }
+                className="bg-blue-600 text-white px-4 py-2 rounded"
+              >
+                Edit
+              </button>
+
+              <button
+                onClick={() => deleteJob(job._id)}
+                className="bg-red-600 text-white px-4 py-2 rounded"
+              >
+                Delete
+              </button>
+
             </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+);
 }
 
 export default MyPostedJobs;
